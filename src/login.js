@@ -32,8 +32,6 @@ const Login = ({ onLogin }) => {
       let user
       if (userDocSnapshot.exists()) {
         const userData = userDocSnapshot.data();
-
-
         const departmentDocRef = userData.department;
         const departmentDocSnapshot = await getDoc(departmentDocRef);
 
@@ -42,7 +40,9 @@ const Login = ({ onLogin }) => {
           user = {
             role: userData.role,
             department: departmentData.name,
+            departmentid:departmentDocRef,
             name: userData.name
+
           };
 
         } else {

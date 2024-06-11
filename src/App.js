@@ -4,7 +4,6 @@ import PorterDashboard from "./porter/Dashboard";
 import AdminDashboard from "./admin/Dashboard";
 import Department1Dashboard from "./depart1/Dashboard";
 import { Layout } from "antd";
-
 function App() {
   const [user, setUser] = useState(null);
 
@@ -32,18 +31,29 @@ function App() {
     sessionStorage.setItem("loginTime", loginTime);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("loginTime");
+  };
+
+  const renderDashboard = () => {
+    if (!user) return null;
+    if (user.department === "porter" && user.role === "admin") {
+      return <PorterDashboard user={user} onLogout={handleLogout} />;
+    }
+
+    if (user.role === "admin" && user.department === "IT") {
+      return <AdminDashboard user={user} onLogout={handleLogout} />;
+    }
+    if (user.department === "depart1" && user.role === "") {
+      return <Department1Dashboard user={user} onLogout={handleLogout} />;
+    }
+  };
+
   return (
     <Layout style={{ minHeight: "100vh", justifyContent: "center" }}>
-      {!user ? (
-        <Login onLogin={handleLogin} />
-      ) : // Render the appropriate dashboard based on the user's role and department
-      user.role === "porter" ? (
-        <PorterDashboard user={user} />
-      ) : user.role === "admin" ? (
-        <AdminDashboard user={user} />
-      ) : (
-        <Department1Dashboard user={user} />
-      )}
+      {!user ? <Login onLogin={handleLogin} /> : renderDashboard()}
     </Layout>
   );
 }
