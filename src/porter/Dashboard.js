@@ -13,6 +13,8 @@ import Piechart from "./Piechart";
 import Header from "../dashboard/header";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Tasks from "./Tasks";
+import Employee from "./Employee";
 
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -30,6 +32,7 @@ const items = [
   {
     key: "sub1",
     label: "Employee",
+    path:"/employee",
     icon: <TeamOutlined />,
     
     children: [
@@ -67,7 +70,6 @@ const Dashboard = ({ user, onLogout }) => {
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
-          onCollapse={(collapsed) => console.log(collapsed)}
         >
           <div className="demo-logo-vertical" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
@@ -92,13 +94,14 @@ const Dashboard = ({ user, onLogout }) => {
             <div
               style={{
                 padding: 24,
-                minHeight: "100vh",
+              
                 background: "#fff",
               }}
             >
               <Routes>
                 <Route path="/dashboard" element={<Piechart />} />
-                <Route path="/Tasks" element={<div>Tasks</div>} />
+                <Route path="/Tasks" element={<Tasks/>} />
+                <Route path="/employee" element={<Employee/>} />
                 <Route path="/Calendar" element={<div>Calendar</div>} />
                 {/* Add more routes as needed */}
                 <Route path="/" element={<Piechart />} />
