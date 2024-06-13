@@ -11,6 +11,7 @@ import PorterRequestForm from "../functions/Requestporter";
 import Piechart from "./Piechart";
 import Header from "../dashboard/header";
 
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -58,12 +59,8 @@ export default function Dashboard({ user, onLogout }) {
   const handleMenuClick = (content) => {
     setSelectedContent(content);
   };
-
-  const renderContent = () => {
-    if (selectedContent === "porter" && user.department === "porter") {
-      return <PorterRequestForm />;
-    }
-    return selectedContent;
+  const handleCancel = () => {
+    setSelectedContent(items[0].content); // Reset selected content to default
   };
 
   const renderSubMenu = (subMenu) => (
@@ -115,7 +112,14 @@ export default function Dashboard({ user, onLogout }) {
               borderRadius: borderRadiusLG,
             }}
           >
-            {renderContent()}
+              <Routes>
+                <Route path="/dashboard" element={<Piechart />} />
+                <Route path="/porter" element={<PorterRequestForm onCancel={handleCancel} />} />
+                <Route path="/option2" element={<div>Option 2 Content</div>} />
+                <Route path="/option3" element={<div>Option 3 Content</div>} />
+                {/* Add more routes as needed */}
+                <Route path="/" element={<Piechart />} />
+              </Routes>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>

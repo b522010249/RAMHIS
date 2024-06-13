@@ -2,7 +2,7 @@ import React from 'react'
 
 function Piechart() {
   return (
-    <div>Depart1 Pie</div>
+    <div>Admin Porter Pie</div>
   )
 }
 
