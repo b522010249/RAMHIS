@@ -254,7 +254,7 @@ const RotaPlanning = () => {
   };
 
   return (
-    <div>
+    <div><Typography.Title >Work Shift Planner</Typography.Title>
       <Space>
         <div style={{ marginBottom: 16 }}>
           <Button onClick={handlePrevYear}>&lt;&lt;</Button>

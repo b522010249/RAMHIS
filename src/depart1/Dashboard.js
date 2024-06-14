@@ -12,6 +12,7 @@ import Piechart from "./Piechart";
 import Header from "../dashboard/header";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import PorterLists from "../functions/PorterLists";
 
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -114,8 +115,9 @@ const Dashboard = ({ user, onLogout }) => {
             >
               <Routes>
                 <Route path="/dashboard" element={<Piechart />} />
-                <Route path="/porter" element={<PorterRequestForm onCancel={handleCancel} />} />
-                <Route path="/option2" element={<div>Option 2 Content</div>} />
+               
+                <Route path="/porter" element={ <PorterLists/>} />
+                <Route path="/option2" element={<PorterRequestForm onCancel={handleCancel} />} />
                 <Route path="/option3" element={<div>Option 3 Content</div>} />
                 {/* Add more routes as needed */}
                 <Route path="/" element={<Piechart />} />
