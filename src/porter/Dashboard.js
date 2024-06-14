@@ -11,7 +11,7 @@ import {
 import PorterRequestForm from "../functions/Requestporter";
 import Piechart from "./Piechart";
 import Header from "../dashboard/header";
-
+import Calandar from "./Calandar"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Tasks from "./Tasks";
 import Employee from "./Employee";
@@ -102,7 +102,7 @@ const Dashboard = ({ user, onLogout }) => {
                 <Route path="/dashboard" element={<Piechart />} />
                 <Route path="/Tasks" element={<Tasks/>} />
                 <Route path="/employee" element={<Employee/>} />
-                <Route path="/Calendar" element={<div>Calendar</div>} />
+                <Route path="/Calendar" element={<Calandar/>} />
                 {/* Add more routes as needed */}
                 <Route path="/" element={<Piechart />} />
               </Routes>
