@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Layout } from "antd";
 import Login from "./login";
 import PorterDashboard from "./porter/Dashboard";
+import Porter from "./porter/Porter";
 import AdminDashboard from "./admin/Dashboard";
 import Department1Dashboard from "./depart1/Dashboard";
-import { Layout } from "antd";
+import { Routes } from "react-router-dom";
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -12,12 +15,12 @@ function App() {
     const loginTime = sessionStorage.getItem("loginTime");
 
     if (storedUser && loginTime) {
-      const twoHoursInMillis = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+      const twoHoursInMillis = 8 * 60 * 60 * 1000; // 8 hours in milliseconds
       const currentTime = new Date().getTime();
+
       if (currentTime - parseInt(loginTime, 10) < twoHoursInMillis) {
         setUser(JSON.parse(storedUser));
       } else {
-        // Clear user data if session has expired
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("loginTime");
       }
@@ -26,9 +29,8 @@ function App() {
 
   const handleLogin = (userData) => {
     setUser(userData);
-    const loginTime = new Date().getTime().toString();
     sessionStorage.setItem("user", JSON.stringify(userData));
-    sessionStorage.setItem("loginTime", loginTime);
+    sessionStorage.setItem("loginTime", new Date().getTime().toString());
   };
 
   const handleLogout = () => {
@@ -39,19 +41,29 @@ function App() {
 
   const renderDashboard = () => {
     if (!user) return null;
-    if (user.department === "porter" && user.role === "admin") {
-      return <PorterDashboard user={user} onLogout={handleLogout} />;
+
+    const { department, role } = user;
+
+    if (department === "porter") {
+      if (role === "admin") {
+        return <PorterDashboard user={user} onLogout={handleLogout} />;
+      }
+      return <Porter user={user} onLogout={handleLogout} />;
     }
 
-    if (user.role === "admin" && user.department === "IT") {
+    if (role === "admin" && department === "IT") {
       return <AdminDashboard user={user} onLogout={handleLogout} />;
     }
-    if (user.department === "depart1" && user.role === "") {
+
+    if (department === "depart1" && role === "") {
       return <Department1Dashboard user={user} onLogout={handleLogout} />;
     }
+
+    return null;
   };
 
   return (
+   
     <Layout style={{ minHeight: "100vh", justifyContent: "center" }}>
       {!user ? <Login onLogin={handleLogin} /> : renderDashboard()}
     </Layout>

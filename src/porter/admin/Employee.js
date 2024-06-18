@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { db } from '../config/firebase'; // Adjust path as per your project setup
+import { db } from '../../config/firebase'; // Adjust path as per your project setup
 import { collection, query, where, onSnapshot, doc } from 'firebase/firestore';
 
 const columns = [

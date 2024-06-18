@@ -8,12 +8,12 @@ import {
   TeamOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
-import Piechart from "./Piechart";
+import Piechart from "./admin/Piechart";
 import Header from "../dashboard/header";
-import Calandar from "./Calandar"
+import Calandar from "./admin/Calandar"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Tasks from "./Tasks";
-import Employee from "./Employee";
+import Tasks from "./admin/Tasks";
+import Employee from "./admin/Employee";
 
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -23,7 +23,7 @@ const items = [
     key: "1",
     icon: <PieChartOutlined />,
     label: "Dashboard",
-    path: "/dashboard",
+    path: "/Dashboard",
     content: <Piechart />,
   },
   { key: "2", icon: <DesktopOutlined />, label: "Tasks" ,path: "/tasks",},
@@ -31,12 +31,12 @@ const items = [
   {
     key: "sub1",
     label: "Employee",
-    path:"/employee",
+
     icon: <TeamOutlined />,
     
     children: [
       { key: "3", icon: <CalendarOutlined />, label: "Calendar",path: "/Calendar", },
-      { key: "4", icon: <ContainerOutlined />, label: "Employee" ,path: "/employee",},
+      { key: "4", icon: <ContainerOutlined />, label: "Employee" ,path: "/Employee",},
     ],
   },
   { key: "5", icon: <ProductOutlined />, label: "Suppleis",path: "/suppleis", },
@@ -98,12 +98,12 @@ const Dashboard = ({ user, onLogout }) => {
               }}
             >
               <Routes>
-                <Route path="/dashboard" element={<Piechart />} />
+                <Route path="/Dashboard" element={<Piechart />} />
                 <Route path="/Tasks" element={<Tasks/>} />
-                <Route path="/employee" element={<Employee/>} />
+                <Route path="/Employee" element={<Employee/>} />
                 <Route path="/Calendar" element={<Calandar/>} />
                 {/* Add more routes as needed */}
-                <Route path="/" element={<Piechart />} />
+                <Route path="/*" element={<Piechart />} />
               </Routes>
             </div>
           </Content>

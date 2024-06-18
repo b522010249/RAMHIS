@@ -6,7 +6,6 @@ import {
   Input,
   TimePicker,
   Button,
-  Select,
   Space,
   Typography,
   Card,
@@ -21,7 +20,7 @@ import {
   onSnapshot,
   setDoc,
 } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 
 const { Text } = Typography;
 

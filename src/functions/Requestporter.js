@@ -21,7 +21,7 @@ import Walker from "../images/Walker.png";
 import WheelChairImage from "../images/Wheelchair.png";
 import TextArea from "antd/es/input/TextArea";
 import { db } from "../config/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs,serverTimestamp ,addDoc } from "firebase/firestore";
 import { Option } from "antd/es/mentions";
 
 const options = [
@@ -128,7 +128,7 @@ function Requestporter({ onCancel }) {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Filter equipment to include only those with non-zero quantities
     const equipmentDetails = Object.keys(equipmentQuantities).reduce(
       (acc, name) => {
@@ -153,12 +153,21 @@ function Requestporter({ onCancel }) {
         {}
       ), // Flatten the equipment array to a single object
       details: task.details,
-      assigner: JSON.parse(sessionStorage.getItem("user")).department
-
+      assigner: JSON.parse(sessionStorage.getItem("user")).department,
+      create: serverTimestamp(),
+      status:false
     };
 
     // Here you can submit 'taskToSubmit' to your backend or perform any further actions
     console.log("Submitting task:", taskToSubmit);
+    try {
+
+      await addDoc(collection(db, "Departments", "Lb74r3alspSRv128sPl0", "Tasks"), taskToSubmit);
+      console.log("Task successfully submitted:", taskToSubmit);
+    } catch (error) {
+      console.error("Error submitting task:", error);
+    }
+    
   };
   const handleCancel = () => {
     // Call onCancel function passed from props
