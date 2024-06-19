@@ -64,6 +64,7 @@ const Login = ({ onLogin }) => {
 
           user = {
             role: userData.role,
+            id:userCredential.user.uid,
             department: departmentData.name,
             departmentid:departmentDocRef,
             name: userData.name,
