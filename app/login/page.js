@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/app/lib/firebase";
 import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
 function Copyright(props) {
   return (
     <Typography
@@ -23,10 +24,10 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="">
+        Krit  
       </Link>
-      {new Date().getFullYear()}
+      :{new Date().getFullYear()}
     </Typography>
   );
 }
@@ -41,7 +42,9 @@ export default function login() {
 
     try {
       const res = await signInEmailPassword(email.value, password.value);
-      console.log({res})
+      const userid = res.user.id
+      const token = await res.user.getIdToken();
+      Cookies.set('token', token, { expires: 1 }); 
       Router.push("/dashboard");
     } catch (error) {
       setError(error.message);
